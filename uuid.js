@@ -34,8 +34,9 @@ Dual licensed under the MIT and GPL licenses.
 define('simple-uuid', function() {
   // Private array of chars to use
   var CHARS = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+  var uuid = {};
 
-  Math.uuid = function (len, radix) {
+    uuid.uuid = function (len, radix) {
     var chars = CHARS, uuid = [];
     radix = radix || chars.length;
 
@@ -65,7 +66,7 @@ define('simple-uuid', function() {
 
   // A more performant, but slightly bulkier, RFC4122v4 solution.  We boost performance
   // by minimizing calls to random()
-  Math.uuidFast = function() {
+  uuid.uuidFast = function() {
     var chars = CHARS, uuid = new Array(36), rnd=0, r;
     for (var i = 0; i < 36; i++) {
       if (i==8 || i==13 ||  i==18 || i==23) {
@@ -83,11 +84,13 @@ define('simple-uuid', function() {
   };
 
   // A more compact, but less performant, RFC4122v4 solution:
-  Math.uuidCompact = function() {
+  uuid.uuidCompact = function() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
       var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
       return v.toString(16);
     }).toUpperCase();
   };
+
+  return uuid;
 });
 
